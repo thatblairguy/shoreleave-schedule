@@ -1,3 +1,8 @@
+Schedule updateifier
+
+This is an undiluted hack, but it should do the trick.
+Click refresh to regenerate the schedule
+
 <?php
 
 /*  Google Drive Spreadsheet -> KonOpas Javascript converter
@@ -31,14 +36,14 @@
 
 $data = array(
 	'program' => array(
-		'key' => '0Auqwt8Hmhr0pdFRiR0hWWWRqRXVUSDVUY2RFYmRzZ0E',
-		'gid' => '0',
-		'tgt' => '../data/finncon2013/program.js'
+		'key' => '1jzUdSFrkFtDT9w8DoN3oZLTnjhB0cCVEHk9jUagE1Lc',
+		'gid' => '1123995721',
+		'tgt' => '../data/program.js'
 	),
 	'people' => array(
-		'key' => '0Auqwt8Hmhr0pdFRiR0hWWWRqRXVUSDVUY2RFYmRzZ0E',
-		'gid' => '1',
-		'tgt' => '../data/finncon2013/people.js'
+		'key' => '1jzUdSFrkFtDT9w8DoN3oZLTnjhB0cCVEHk9jUagE1Lc',
+		'gid' => '863910845',
+		'tgt' => '../data/people.js'
 	)
 );
 
@@ -51,7 +56,7 @@ require_once('lib/gdrive2json.php');
 require_once('update-cache-manifest.php');
 
 function gdrive2konopas($name, $set) {
-	$json = gdrive2json($set['key'], $set['gid']);
+	$json = gdrive2json($set['key'], $set['gid'], 'not-ccc');
 	if (strlen($json) == 0) exit("JSON length 0! Error!");
 	$js = "var $name = $json;";
 	$dir = dirname($set['tgt']);
@@ -67,5 +72,5 @@ foreach ($data as $k => $v) {
 	gdrive2konopas($k, $v);
 	echo "ok.\n"; flush();
 }
-echo "\n" . update_cache_manifest($cache_manifest);
+//echo "\n" . update_cache_manifest($cache_manifest);
 echo "\nAll done.\n";
